@@ -41,24 +41,18 @@ public class MainActivity extends AppCompatActivity {
             return; // Exit the method
         }
 
+        int result;
         if (selectedOption.equalsIgnoreCase(getResources().getString(R.string.symbols_selection))) {
-            // Count letters if "Symbols" option is selected
-            this.tvResult.setText(String.valueOf(userInput.length()));
+            result = TxtCounter.countLetters(userInput);
         } else if (selectedOption.equalsIgnoreCase(getResources().getString(R.string.word_selection))) {
-            // Count words if "Words" option is selected
-            String[] words = userInput.split("\\W+"); // Split on non-word characters
-            int wordCount = 0;
-            for (String word : words) {
-                // Check if the word is not empty and consists of letters
-                if (!word.isEmpty() && word.matches("[a-zA-Z]+")) {
-                    wordCount++;
-                }
-            }
-            this.tvResult.setText(String.valueOf(wordCount));
+            result = TxtCounter.countWords(userInput);
         } else {
-            // Handle other options (if any)
             Toast.makeText(getApplicationContext(), "Not implemented", Toast.LENGTH_LONG).show();
+            return;
         }
+
+        this.tvResult.setText(String.valueOf(result));
+
     }
 
 }
